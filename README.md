@@ -16,6 +16,8 @@ rotando automáticamente cada 30 segundos.
   deja pasar los clics al escritorio (cambiar fondo, tema, funciones…).
 - 🎨 Colores del **tema omarchy activo** y opacidad ajustable.
 
+![Tarjeta de frases en ruso](assets/screenshot.jpg "Tarjeta de frases en ruso sobre el escritorio")
+
 ---
 
 ## Instalación
@@ -105,6 +107,7 @@ madmasx.russian-phrases/
 ├── manifest.json          # Metadatos del plugin (id, licencia, entryPoint)
 ├── phrases.js             # Las 215 frases (ru / pron / es)
 ├── RussianPhrases.qml     # Tarjeta + rotación + arrastre + cierre (Quickshell)
+├── assets/screenshot.jpg  # Captura para el README
 └── README.md              # Esto
 ```
 
