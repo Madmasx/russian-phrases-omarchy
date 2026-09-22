@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "madmasx.russian-phrases",
+  "name": "Frases de ruso",
+  "version": "0.2.0",
+  "author": "Madmasx",
+  "license": "MIT",
+  "description": "Tarjeta flotante en el escritorio que muestra frases en ruso con pronunciación y traducción al español, rotando cada cierto tiempo.",
+  "kinds": ["overlay"],
+  "keepLoaded": true,
+  "entryPoints": {
+    "overlay": "RussianPhrases.qml"
+  }
+}
