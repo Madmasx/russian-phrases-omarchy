@@ -11,6 +11,7 @@ Item {
   id: root
 
   readonly property string home: Quickshell.env("HOME")
+  readonly property string configPath: root.home + "/.config/omarchy/russian-phrases.json"
   // Inyectados por el shell (onLoaded): permiten avisar al shell cuando el
   // botón de cierre oculta la tarjeta, igual que hace omarchy.emojis.
   property var shell: null
@@ -57,7 +58,7 @@ Item {
 
   function loadConfig() {
     try {
-      var c = JSON.parse(String(Util.readConfig || "{}"))
+      var c = JSON.parse(String(configFile.text() || "{}"))
       if (c && typeof c === "object") {
         if (c.intervalSec !== undefined) root.intervalSec = Math.max(5, Math.min(3600, Number(c.intervalSec)))
         if (c.position) root.position = String(c.position)
@@ -65,6 +66,11 @@ Item {
         if (c.freeY !== undefined) root.freeY = Number(c.freeY)
       }
     } catch (e) { console.warn("russian-phrases: config inválida", e) }
+  }
+
+  function saveConfig(payload) {
+    try { configFile.setText(payload) }
+    catch (e) { console.warn("russian-phrases: no se pudo guardar config", e) }
   }
 
   function applyPhrase() {
@@ -239,6 +245,7 @@ Item {
         cursorShape: Qt.OpenHandCursor
         property point pressPoint
         property point pressCardPos
+        property Item rootRef: root
         onPressed: {
           pressPoint = Qt.point(mouse.x, mouse.y)
           pressCardPos = Qt.point(card.x, card.y)
@@ -246,17 +253,17 @@ Item {
         }
         onPositionChanged: {
           if (!pressed) return
-          root.freeX = Math.max(0, Math.min(host.width - card.width, pressCardPos.x + (mouse.x - pressPoint.x)))
-          root.freeY = Math.max(0, Math.min(host.height - card.height, pressCardPos.y + (mouse.y - pressPoint.y)))
+          rootRef.freeX = Math.max(0, Math.min(host.width - card.width, pressCardPos.x + (mouse.x - pressPoint.x)))
+          rootRef.freeY = Math.max(0, Math.min(host.height - card.height, pressCardPos.y + (mouse.y - pressPoint.y)))
         }
         onReleased: {
           cursorShape = Qt.OpenHandCursor
-          Util.saveConfig(JSON.stringify({ freeX: root.freeX, freeY: root.freeY }))
+          rootRef.saveConfig(JSON.stringify({ freeX: rootRef.freeX, freeY: rootRef.freeY }))
         }
         onDoubleClicked: {
-          root.freeX = -1
-          root.freeY = -1
-          Util.saveConfig(JSON.stringify({ freeX: -1, freeY: -1 }))
+          rootRef.freeX = -1
+          rootRef.freeY = -1
+          rootRef.saveConfig(JSON.stringify({ freeX: -1, freeY: -1 }))
         }
       }
 
@@ -266,6 +273,16 @@ Item {
         item: card
       }
     }
+  }
+
+  FileView {
+    id: configFile
+    path: root.configPath
+    watchChanges: true
+    atomicWrites: true
+    printErrors: false
+    onLoaded: root.loadConfig()
+    onLoadFailed: root.loadConfig()
   }
 
   Timer {
