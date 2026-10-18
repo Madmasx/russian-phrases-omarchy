@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
-import QtQuick
+import QtQuick 6.11
 import qs.Commons
 import "phrases.js" as Phrases
 
