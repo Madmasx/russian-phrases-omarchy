@@ -4,7 +4,7 @@ Tarjeta flotante para el escritorio **omarchy** que muestra **frases en ruso** c
 pronunciación (transliteración para hispanohablantes) y la traducción al español,
 rotando automáticamente cada 30 segundos.
 
-- 📖 **215 frases** organizadas por tema: saludos, cortesía, presentaciones, comida,
+- 📖 **355 frases** organizadas por tema: saludos, cortesía, presentaciones, comida,
   compras, números, tiempo, viajes, trabajo, emociones…
 - 🔊 **Pronunciación fonética** pensada para hablantes de español (sílaba tónica
   marcada).
@@ -105,7 +105,7 @@ Al guardar, el plugin recarga las frases automáticamente.
 madmasx.russian-phrases/
 ├── LICENSE                # MIT
 ├── manifest.json          # Metadatos del plugin (id, licencia, entryPoint)
-├── phrases.js             # Las 215 frases (ru / pron / es)
+├── phrases.js             # Las 355 frases (ru / pron / es)
 ├── RussianPhrases.qml     # Tarjeta + rotación + arrastre + cierre (Quickshell)
 ├── assets/screenshot.jpg  # Captura para el README
 └── README.md              # Esto
